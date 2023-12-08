@@ -8,11 +8,11 @@ pygame.display.set_caption("Shitty Bird")
 FPS = pygame.time.Clock()
 
 ### CREATING STUFF ###
-Sprites = pygame.sprite.Group() # ALL SPRITES THAT WILL BE DRAWN AND UPDATED ON SCREEN (By default, please pass this group to all sprites)
+Sprites = pygame.sprite.Group()
 
 ### UPDATE ###
 while True:
-    # HANDE EVENTS
+    # HANDLE EVENTS
     for event in pygame.event.get():
         # QUIT EVENT.
         if event.type == pygame.QUIT:
