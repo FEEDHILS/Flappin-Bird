@@ -13,7 +13,7 @@ FPS = pygame.time.Clock()
 ### CREATING STUFF ###
 Sprites = pygame.sprite.Group() # ALL SPRITES THAT WILL BE DRAWN AND UPDATED ON SCREEN (By default, please pass this group to all sprites)
 event_handler = EventManager()
-player = Player([W/2, H/2], [30, 30], Sprites)
+player = Player([W/2, H/2], Sprites)
 
 ### UPDATE ###
 while True:
