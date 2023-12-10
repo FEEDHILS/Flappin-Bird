@@ -1,27 +1,24 @@
 import pygame
+from constants import *
+from eventmanager import EventManager
+from player import Player
 from sys import exit
 
 ### INITIALIZATION ###
 pygame.init()
-screen = pygame.display.set_mode([640, 720])
+screen = pygame.display.set_mode([W, H])
 pygame.display.set_caption("Shitty Bird")
 FPS = pygame.time.Clock()
 
 ### CREATING STUFF ###
-Sprites = pygame.sprite.Group()
+Sprites = pygame.sprite.Group() # ALL SPRITES THAT WILL BE DRAWN AND UPDATED ON SCREEN (By default, please pass this group to all sprites)
+event_handler = EventManager()
+player = Player([W/2, H/2], [30, 30], Sprites)
 
 ### UPDATE ###
 while True:
     # HANDLE EVENTS
-    for event in pygame.event.get():
-        # QUIT EVENT.
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            exit()
-
-        # KEYBOARD EVENTS.
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-            pygame.event.post(pygame.event.Event(pygame.QUIT))
+    event_handler.update()
 
     # GRAPHICS
     screen.fill("cyan")
