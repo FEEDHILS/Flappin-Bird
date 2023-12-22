@@ -2,7 +2,6 @@ import pygame as pg
 from levelmanager import LevelManager
 from eventmanager import EventManager
 from constants import *
-
 class MainApp():
 
     def __init__(self):
@@ -22,16 +21,16 @@ class MainApp():
 
     def update(self):
         while True:
-            # HANDLE EVENTS
+            # Проверяем События
             self.event_handler.handle()
             self.lvlManager.event_handle()
             
-            #DRAW STUFF
+            # Отрисовка
             level = self.lvlManager.GetLevel()
             level.update()
             self.screen.blit(level.screen, (0,0))
 
-            # REDRAW    
+            # Обновление
             pg.display.flip()
             self.FPS.tick(60)
 

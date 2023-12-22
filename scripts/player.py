@@ -1,7 +1,7 @@
 import pygame as pg
 from eventmanager import EventManager
 from constants import *
-
+import random
 class PlayerHitbox():
     def __init__(self, image : pg.surface.Surface):
         self.image = image
@@ -13,20 +13,21 @@ class Player(pg.sprite.Sprite):
         super().__init__(*groups)
 
         # Графика.
-        self.birdimg = pg.image.load("gfx/bird.png").convert_alpha()
-        self.birdimg = pg.transform.scale_by(self.birdimg, .08)
+        self.bird_color = random.choice(['red', 'blue', 'yellow', 'green', 'gray'])
+        self.birdimg = pg.image.load(f"gfx/bird/{self.bird_color}1.png").convert_alpha()
+        self.birdimg = pg.transform.scale_by(self.birdimg, 4)
         self.image = self.birdimg
         self.rect = self.image.get_rect()
-
+    
         # Звуки.
         self.jumpsound = pg.mixer.Sound("sounds/sound_wing.wav")
-        self.jumpsound.set_volume(0.3)
+        self.jumpsound.set_volume(0.1)
         self.dashsound = pg.mixer.Sound("sounds/sound_whoosh.wav")
-        self.dashsound.set_volume(0.3)
+        self.dashsound.set_volume(0.1)
         self.hitsound = pg.mixer.Sound("sounds/sound_hit.wav")
-        self.hitsound.set_volume(0.3)
+        self.hitsound.set_volume(0.1)
         self.diesound = pg.mixer.Sound("sounds/sound_die.wav")
-        self.diesound.set_volume(0.3)
+        self.diesound.set_volume(0.1)
 
 
         # Кастомный хитбокс
@@ -40,6 +41,10 @@ class Player(pg.sprite.Sprite):
         self.dash_amount = 2
         self.gravityenabled = True
         self.dead = False
+        self.frames = 1 # Кадры анимации
+
+        self._remberpipe = list() # ностальгия по трубам...
+
 
 
     def update(self):
@@ -65,8 +70,11 @@ class Player(pg.sprite.Sprite):
         self.image = pg.transform.rotate(self.birdimg, self.angle)
         self.rect = self.image.get_rect(center = self.rect.center)
 
+        self.animation(0.2)
+
         # Проверка событий.
         self.event_handle()
+
 
 
     def gravity(self):
@@ -98,9 +106,11 @@ class Player(pg.sprite.Sprite):
                     self.hitsound.play()
                     EventManager.ins.set_timer(100, method=lambda: self.diesound.play())
                     self.dead = True
+                if i not in self._remberpipe:
+                    EventManager.ins.post_event(SCOREUP) # Запоминаем с какой трубой соприкасаемся, 
+                    self._remberpipe.append(i)           # чтобы давать за одну трубу - одно очко!
                 
-                EventManager.ins.post_event(SCOREUP, {"pipe": i}) # Запоминаем с какой трубой соприкасаемся, 
-                                                                    # чтобы не давать за одну трубу очки.
+                
 
         # Проверка на коллизию с полом
         if self.rect.bottom >= BOTTOMCOLLISION:
@@ -132,6 +142,16 @@ class Player(pg.sprite.Sprite):
     # Вспомогательные методы, использующиеся в таймерах.
     def dash_reload(self): self.dash_amount += 1
     def enable_gravity(self): self.gravityenabled = True
+
+    def animation(self, speed):
+        # Спрайтовая Анимация
+        self.frames = (self.frames+speed)
+        if self.frames >= 4:
+            self.frames = 1
+
+        img = pygame.image.load(f'gfx/bird/{self.bird_color}{int(self.frames)}.png')
+        img = pg.transform.scale_by(img, 4)
+        self.birdimg = img
 
     def event_handle(self):
         # Проверка Польз. Ввода

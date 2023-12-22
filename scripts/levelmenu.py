@@ -9,6 +9,7 @@ class LevelMenu():
         self.font = pg.font.Font(FONT, 64)
         self.screen = pg.surface.Surface([W, H])
         self.Sprites = pg.sprite.Group()
+        
         self.graphics()
 
     def graphics(self):

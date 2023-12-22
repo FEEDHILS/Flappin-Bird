@@ -19,11 +19,11 @@ class LevelManager():
     def LevelReload(self):
         del self.currentLevel
         self.LoadLevel(self.currentIndex)
-
-    def GetLevel(self):
-        return self.currentLevel
     
+    def GetLevel(self): return self.currentLevel
+
     def event_handle(self):
         levelEvent = EventManager.ins.has_event(LOADLEVEL)
         if levelEvent:
-            self.LoadLevel(levelEvent.dict.get("level", 0))
+            level = levelEvent.dict.get("level", 0)
+            self.LoadLevel(level)
