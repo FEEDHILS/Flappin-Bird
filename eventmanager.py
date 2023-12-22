@@ -1,15 +1,16 @@
 import pygame
+from constants import *
 
 class EventManager():
     # SINGLETON
-    instance = None
+    ins = None
     def __new__(cls):
-        if cls.instance == None:
-            cls.instance = super(EventManager, cls).__new__(cls)
-        return cls.instance
+        if cls.ins == None:
+            cls.ins = super(EventManager, cls).__new__(cls)
+        return cls.ins
 
     # CHECKS FOR EVENTS
-    def update(self):
+    def handle(self):
         self.Events = pygame.event.get()
 
         if self.has_event(pygame.QUIT):
