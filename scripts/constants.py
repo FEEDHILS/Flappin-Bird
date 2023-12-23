@@ -18,7 +18,7 @@ MAXDASHLENGTH = 200
 MINDASHLENGTH = 125
 # PIPE CONSTANTS.
 GAP = [125, 225] # Min and max amount of space between pipes.
-MAXOFFSET = [50, H-120] # Beyound that, the player would be able to see sprite blank space
+MAXOFFSET = [100, H-150] # Beyound that, the player would be able to see sprite blank space
  
 
 ### CUSTOM EVENTS ###

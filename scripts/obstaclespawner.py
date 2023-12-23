@@ -36,6 +36,8 @@ class ObstacleSpawner():
         # Меняем Сложность
         if EventManager.ins.has_event(SCOREUP):
             self.speed -= 0.15
+            if self.delay > 2000:
+                self.delay -= 50
             if self._score == 15:
                 self.pipetype = 1
                 self.color = "green"

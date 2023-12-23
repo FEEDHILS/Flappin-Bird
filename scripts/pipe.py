@@ -8,22 +8,23 @@ class Pipe(pygame.sprite.Sprite):
     def __init__(self, *groups: pygame.sprite.Group, position=[W, H/2], color = "red", speed=3, pipetype = 0):
         super().__init__(*groups)
 
-        # GRAPHICS.
-        self.pipeimg = pygame.image.load(f"gfx/pipe-{color}.png").convert_alpha() # Load pipe sprite.
+        # Графика.
+        self.pipeimg = pygame.image.load(f"gfx/pipe-{color}.png").convert_alpha()
         imgsize = self.pipeimg.get_size()
-        self.pipeimg = pygame.transform.scale(self.pipeimg, (imgsize[0]*2.25, imgsize[1]*1.5) ) # Scale the pipe.
-        self.gap = random.randint(GAP[0], GAP[1]) # Gap between two pipes.
-        imgsize = self.pipeimg.get_size() # Refresh size, after we scaled our image.
+        self.pipeimg = pygame.transform.scale(self.pipeimg, (imgsize[0]*2.25, imgsize[1]*1.5) ) # Растягиваем трубы
+        self.gap = random.randint(GAP[0], GAP[1]) # Зазор
+        imgsize = self.pipeimg.get_size()
 
-        self.image = pygame.surface.Surface( (imgsize[0], imgsize[1] * 2 + self.gap), pygame.SRCALPHA ) # Create a big surface for our two pipes
-        # ADDING THE PIPES TO SURFACE.
+        self.image = pygame.surface.Surface( (imgsize[0], imgsize[1] * 2 + self.gap), pygame.SRCALPHA ) # Создаем большой Surfae чтобы уместить наши две трубы.
+
+        # Добавляем две трубы к Image
         self.image.blit(pygame.transform.rotate(self.pipeimg, 180), (0, 0))
         self.image.blit(self.pipeimg, (0, imgsize[1] + self.gap))
     
         self.rect = self.image.get_rect()
         self.mask = pygame.mask.from_surface(self.image)
 
-        # VARIABLES.
+        # Переменные.
         self.rect.left = position[0]
         self.rect.centery = position[1]
         self.ogposition = position
