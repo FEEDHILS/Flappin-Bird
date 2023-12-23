@@ -14,7 +14,7 @@ class LevelMenu():
 
     def graphics(self):
         # NAME OF THE GAME
-        self.nametext = self.font.render("Flappin' Bird", False, "white")
+        self.nametext = pg.image.load("gfx/Title.png").convert_alpha()
 
         # BACKGROUND INIT AND TILING
         self.bgm = pg.image.load("gfx/background-night.png").convert()
@@ -24,14 +24,14 @@ class LevelMenu():
             self.background.blit(self.bgm, (self.bgm.get_width() * i, 0))
 
         # BUTTONS
-        self.startbutton = Button(self.Sprites, image="gfx/button1.png", 
-                                  text="Start Game", position=[W/2, H-150], scale=4,
+        self.startbutton = Button(self.Sprites, image="gfx/button4.png", 
+                                  text="Start Game", position=[W/2, H-150], scale=2,
                                   func=lambda: EventManager.ins.set_timer(100, lambda: EventManager.ins.post_event(LOADLEVEL, {"level": 1})))
 
 
     def render(self):
         self.screen.blit(self.background, (0,0))
-        self.screen.blit(self.nametext, [W/2 - self.nametext.get_width()/2, 150])
+        self.screen.blit(self.nametext, [W/2 - self.nametext.get_width()/2, 20])
 
 
     def update(self):

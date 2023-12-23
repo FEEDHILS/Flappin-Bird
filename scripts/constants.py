@@ -5,6 +5,7 @@ import pygame
 W = 640 # Width of Screen
 H = 720 # Height
 FONT = "fonts/dpcomic.ttf"
+BUTTONCOLOR = pygame.color.Color( (29,26,49) )
 
 
 # PLAYER CONSTANTS.
@@ -12,7 +13,7 @@ PLAYERDAMPING = .1 # Damping just slows velocity change.
 PLAYERJUMPHEIGHT = 100 
 GRAVITY = 7
 PLAYERMAXVELOCITY = [300, 300]
-BOTTOMCOLLISION = H-50
+BOTTOMCOLLISION = H-10
 MAXDASHLENGTH = 200
 MINDASHLENGTH = 125
 # PIPE CONSTANTS.

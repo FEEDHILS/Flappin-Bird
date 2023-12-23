@@ -10,7 +10,7 @@ class Button(pygame.sprite.Sprite):
         self.func = func
 
         # ADDING TEXT TO BUTTON
-        _text = pygame.font.Font(FONT, 58).render(text, False, "Black")
+        _text = pygame.font.Font(FONT, 58).render(text, False, BUTTONCOLOR)
         _size = self.image.get_size()
         _tsize = _text.get_size()
         self.image.blit(_text, (_size[0]/2 - _tsize[0]/2, _size[1]/2 - _tsize[1]/2))

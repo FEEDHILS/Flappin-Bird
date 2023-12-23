@@ -7,7 +7,7 @@ from gameoverscreen import GameOver
 from eventmanager import EventManager
 
 class LevelOne():
-    def __init__(self) -> None:
+    def __init__(self):
         # Объектики
         self.Sprites = pg.sprite.Group() # Тут все спрайты отрисовываются, тут круто!
         self.player = Player([W/4, H/2]  , self.Sprites)
@@ -28,7 +28,6 @@ class LevelOne():
         self.daybgm = self.backgroundinit()
         self.nightbgm = self.backgroundinit(state="night")
         self.nightbgm.set_alpha(0)
-        self.bgsize = 288
         self.bgalpha = 0
 
 
@@ -58,14 +57,13 @@ class LevelOne():
         self.Spawner.update()
         self.Sprites.update()
         self.event_handle()
-        # Возможность остановить прокрутку задника. Если например игрок помер(rip)
-        if not self.stopbg:
-            self.bgdraw()
+
+        self.bgdraw()
 
         # Графика
         self.screen.blit(self.daybgm, (self.bgx, 0))
         self.screen.blit(self.nightbgm, (self.bgx, 0))
-        self.screen.blit(self.basegeneration(), (self.bgx*2, H-100))
+        self.screen.blit(self.basegeneration(), (self.bgx*2, H-50))
 
         self.Sprites.draw(self.screen)
         scoretext = self.font.render( "Score: " + str(self.score), False, "white" )
@@ -73,7 +71,7 @@ class LevelOne():
 
     def bgdraw(self):
         # Смещение задника
-        self.bgx -= 1.5
+        self.bgx -= 1.5 * (not self.stopbg)
         if -self.bgx >= W:
             self.bgx = -216 + 10 # дерьмо покруче evil floating point bit hacking
     

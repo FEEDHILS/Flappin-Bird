@@ -10,9 +10,9 @@ class GameOver(pg.sprite.Sprite):
         super().__init__(*groups)
 
         self.image = pg.image.load("gfx/gameoverscreen.png").convert_alpha()
-        self.image = pg.transform.scale_by(self.image, 6)
-        self.rect = self.image.get_rect()
-        self.rect.center = [W/2, -H/2]
+        self.image = pg.transform.scale_by(self.image, (8, 6))
+        self.image.blit(pg.image.load("gfx/gameover.png").convert_alpha(), (self.image.get_width()/2-192, 70) )
+        self.rect = self.image.get_rect(center=[W/2, -H/2])
         self.ogrect = self.rect
         self.ogimg = self.image
         self.group = groups[1]
@@ -26,16 +26,16 @@ class GameOver(pg.sprite.Sprite):
 
 
     def start(self, *groups: pg.sprite.Group):
-        pos = (self.rect.left + 150, self.rect.centery + 50)
+        pos = (self.rect.left + 200, self.rect.centery + 50)
 
-        self.retrybutton = Button(groups, image="gfx/button1.png", text="Retry", 
-                                  position=pos, scale=2.5, func=self.reload)
+        self.retrybutton = Button(groups, image="gfx/button4.png", text="Retry", 
+                                  position=pos, scale=1.5, func=self.reload)
     
 
-        pos = (self.rect.centerx + 120, self.rect.centery + 50)
+        pos = (self.rect.right - 150, self.rect.centery + 50)
 
-        self.leavebutton = Button(groups, image="gfx/button2.png", text="", 
-                                  position=pos, scale=2.5, func=self.leave)
+        self.leavebutton = Button(groups, image="gfx/button3.png", text="", 
+                                  position=pos, scale=1.5, func=self.leave)
         
     def update(self):
         # Небольшая анимация
